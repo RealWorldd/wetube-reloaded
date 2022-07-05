@@ -1,4 +1,4 @@
-import Video from "../models/Video";
+import Video, { formatHashtags } from "../models/Video";
 
 export const home = async (req, res) => {
     const videos = await Video.find({});
@@ -31,7 +31,7 @@ export const postEdit = async (req, res) => {
         return res.render("404", { pageTitle: "Video not found." });
     }
     await Video.findByIdAndUpdate(id, {
-        title, description, hashtags: hashtags.split(",").map((word) => (word.startsWith("#") ? word : `#${word}`))
+        title, description, hashtags: Video.formatHashtags(hashtags),
     });
     return res.redirect(`/videos/${id}`);
 };
@@ -47,7 +47,7 @@ export const postUpload = async (req, res) => {
             title,
             description,
             createdAt: Date.now(),
-            hashtags,
+            hashtags: Video.formatHashtags(hashtags),
         });
         return res.redirect("/");
     } catch (error) {
@@ -58,3 +58,7 @@ export const postUpload = async (req, res) => {
         });
     }
 };
+
+export const deleteVideo =async (req, res) => { 
+    
+}

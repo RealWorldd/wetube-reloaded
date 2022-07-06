@@ -4,3 +4,4 @@ export const remove = (req, res) => res.send("Delete User");
 export const login = (req, res) => res.send("Login");
 export const logout = (req, res) => res.send("Log Out");
 export const see = (req, res) => res.send("See User");
+export const sejin = (req, res) => res.send("1");
